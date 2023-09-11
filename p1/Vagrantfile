@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bullseye64"
+
+  config.vm.define "fldoucetS" do |control|
+    control.vm.hostname = "fldoucetS"
+    control.vm.network "private_network", ip: "192.168.56.110"
+    control.vm.provision "shell", path: "scripts/installS.sh"
+    control.vm.provider "virtualbox" do |vb|
+      vb.name = "fldoucet"
+      vb.memory = "1024"
+      vb.cpus = "1"
+    end
+  end
+
+  config.vm.define "maboyeSW" do |control|
+    control.vm.hostname = "maboyeSW"
+    control.vm.network "private_network", ip: "192.168.56.111"
+    control.vm.provision "shell", path: "scripts/installSW.sh"
+    control.vm.provider "virtualbox" do |vb|
+      vb.name = "maboye"
+      vb.memory = "1024"
+      vb.cpus = "1"
+    end
+  end
+end
